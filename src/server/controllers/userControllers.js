@@ -21,12 +21,12 @@ const registerUser = async (req, res, next) => {
       res.status(201).json({ user: name });
     } else {
       const userError = new Error();
-      userError.customMessage = "User name already exist";
+      userError.customMessage = "Username already exists";
       userError.statusCode = 409;
       next(userError);
       debug(
         chalk.redBright(
-          "An attempt to register an user has failed: User existent"
+          "An attempt to register an user has failed: User already exists"
         )
       );
     }
