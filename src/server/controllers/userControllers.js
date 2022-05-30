@@ -4,8 +4,9 @@ const chalk = require("chalk");
 const User = require("../../database/models/User");
 
 const registerUser = async (req, res, next) => {
-  const { name, username, password } = req.body;
   try {
+    const { name, username, password } = req.body;
+
     const user = await User.findOne({ username });
 
     if (!user) {
