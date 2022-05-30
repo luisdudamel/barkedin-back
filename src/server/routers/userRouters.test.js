@@ -42,4 +42,19 @@ describe("Given a POST 'users/register' endpoint", () => {
       expect(body.msg).toBe(expectedMessage);
     });
   });
+
+  describe("When it receives a request with no body", () => {
+    test("Then it should respond with a status 400 and a 'Bad request' message", async () => {
+      const newUserData = {};
+
+      const expectedMessage = "Bad request";
+
+      const { body } = await request(app)
+        .post("/users/register")
+        .send(newUserData)
+        .expect(400);
+
+      expect(body.msg).toBe(expectedMessage);
+    });
+  });
 });
