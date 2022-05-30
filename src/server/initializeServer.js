@@ -1,7 +1,7 @@
 require("dotenv").config();
 const debug = require("debug")("barkedin:server:initializeServer");
 const chalk = require("chalk");
-const app = require("./index");
+const { app } = require("./index");
 
 const initializeServer = (port) =>
   new Promise((resolve, reject) => {
