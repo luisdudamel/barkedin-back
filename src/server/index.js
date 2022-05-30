@@ -18,4 +18,4 @@ app.use("/users", usersRouter);
 app.use(notFoundError);
 app.use(generalError);
 
-module.exports = app;
+module.exports = { app };

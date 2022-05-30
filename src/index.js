@@ -12,7 +12,7 @@ const connectionString = process.env.MONGO_CONNECTION;
   try {
     await connectDB(connectionString);
     await initializeServer(port);
-  } catch {
+  } catch (error) {
     debug(chalk.red("Exiting with errors"));
     process.exit(1);
   }
