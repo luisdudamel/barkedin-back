@@ -1,0 +1,58 @@
+{
+  "name": "luis-dudamel_back-final-project-202204-bcn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test-dev": "jest --watchAll",
+    "test-coverage": "jest --coverage",
+    "prepare": "husky install",
+    "start": "node src",
+    "nodemon-dev": "nodemon src -q"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isdi-coders-2022/Luis-Dudamel_Back-Final-Project-202204-BCN.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isdi-coders-2022/Luis-Dudamel_Back-Final-Project-202204-BCN/issues"
+  },
+  "homepage": "https://github.com/isdi-coders-2022/Luis-Dudamel_Back-Final-Project-202204-BCN#readme",
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^7.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "@types/jest": "^27.4.0",
+    "bcrypt": "^5.0.1",
+    "chalk": "^4.1.2",
+    "cors": "^2.8.5",
+    "debug": "^4.3.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "jest": "^27.5.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb-memory-server": "^8.5.2",
+    "mongoose": "^6.2.2",
+    "morgan": "^1.10.0",
+    "supertest": "^6.2.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!.eslintrc.js",
+      "!coverage/**/*.js",
+      "!src/index.js",
+      "!src/server/serverInit.js"
+    ]
+  }
+}
