@@ -7,6 +7,7 @@ const registerUser = async (req, res, next) => {
   const { name, username, password } = req.body;
   try {
     const user = await User.findOne({ username });
+
     if (!user) {
       const encryptedPassword = await bcrypt.hash(password, 10);
 
@@ -18,7 +19,7 @@ const registerUser = async (req, res, next) => {
 
       await User.create(newUser);
 
-      res.status(201).json({ user: name });
+      res.status(201).json({ msg: "New user created succesfully" });
     } else {
       const userError = new Error();
       userError.customMessage = "Username already exists";
