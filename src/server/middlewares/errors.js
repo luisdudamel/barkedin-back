@@ -1,6 +1,7 @@
 require("dotenv").config();
 const debug = require("debug")("barkedin:server:middlewares:errors");
 const chalk = require("chalk");
+const { ValidationError } = require("express-validation");
 
 const notFoundError = (req, res) => {
   debug(chalk.redBright(`A request did not find the endpoint requested`));
@@ -11,12 +12,15 @@ const notFoundError = (req, res) => {
 // eslint-disable-next-line no-unused-vars
 const generalError = (error, req, res, next) => {
   debug(chalk.red(error.message || error.customMessage));
-  const message = error.customMessage ?? "General pete";
+  const message = error.customMessage ?? "Internal server error";
   const statusCode = error.statusCode ?? 500;
 
-  debug(chalk.bgRedBright(error.message));
-
-  res.status(statusCode).json({ error: true, message });
+  if (error instanceof ValidationError) {
+    res.status(400).json({ msg: "Bad request" });
+    debug(chalk.bgRedBright(error.message));
+  } else {
+    res.status(statusCode).json({ message });
+  }
 };
 
 module.exports = {
