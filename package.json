@@ -52,7 +52,7 @@
       "!.eslintrc.js",
       "!coverage/**/*.js",
       "!src/index.js",
-      "!src/server/serverInit.js"
+      "!src/server/initializeServer.js"
     ]
   }
 }
