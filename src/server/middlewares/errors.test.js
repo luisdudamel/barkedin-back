@@ -1,4 +1,3 @@
-const { ValidationError } = require("express-validation");
 const { notFoundError, generalError } = require("./errors");
 
 describe("Given a notFoundError function", () => {
