@@ -47,4 +47,19 @@ describe("Given a registerUser controller", () => {
       expect(next).toHaveBeenCalledWith(errorExpected);
     });
   });
+
+  describe("When its called with an inexistent request body", () => {
+    test("Then it should call the next function with an error", async () => {
+      const errorExpected = new Error();
+      User.findOne = jest.fn().mockReturnValue(errorExpected);
+
+      const req = {};
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const next = jest.fn();
+
+      await registerUser(req, res, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
 });
