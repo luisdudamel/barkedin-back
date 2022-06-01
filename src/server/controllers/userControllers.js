@@ -20,7 +20,7 @@ const registerUser = async (req, res, next) => {
 
       await User.create(newUser);
 
-      res.status(201).json({ msg: "New user created succesfully" });
+      res.status(201).json({ message: "New user created succesfully" });
     } else {
       const userError = new Error();
       userError.customMessage = "Username already exists";

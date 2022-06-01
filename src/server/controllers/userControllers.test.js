@@ -8,7 +8,7 @@ describe("Given a registerUser controller", () => {
       User.create = jest.fn().mockResolvedValue(true);
 
       const expectedStatus = 201;
-      const expectedMessage = { msg: "New user created succesfully" };
+      const expectedMessage = { message: "New user created succesfully" };
       const req = {
         body: {
           name: "Marta",

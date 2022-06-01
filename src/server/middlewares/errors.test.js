@@ -21,7 +21,7 @@ describe("Given a notFoundError function", () => {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
-      const expectedMessage = { msg: "Endpoint not found" };
+      const expectedMessage = { message: "Endpoint not found" };
 
       notFoundError(null, res);
 
