@@ -1,95 +1,81 @@
 {
-	"info": {
-		"_postman_id": "ef927361-bbe6-4abb-8342-75816d0f89d1",
-		"name": "BarkedIn-Luis-Dudamel",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Register User",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"luis\",\n    \"username\": \"luis1\",\n    \"password\": \"1234\"    \n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{origin}}/users/register",
-					"host": [
-						"{{origin}}"
-					],
-					"path": [
-						"users",
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login User",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"luis1\",\n    \"password\": \"1234\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{origin}}/users/login",
-					"host": [
-						"{{origin}}"
-					],
-					"path": [
-						"users",
-						"login"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "origin",
-			"value": "https://luis-dudamel-back-final-project-202204.onrender.com",
-			"type": "string"
-		},
-		{
-			"key": "dev",
-			"value": "http://localhost:4000",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "ef927361-bbe6-4abb-8342-75816d0f89d1",
+    "name": "BarkedIn-Luis-Dudamel",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"luis\",\n    \"username\": \"luis1\",\n    \"password\": \"1234\"    \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{origin}}/users/register",
+          "host": ["{{origin}}"],
+          "path": ["users", "register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"luis1\",\n    \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{origin}}/users/login",
+          "host": ["{{origin}}"],
+          "path": ["users", "login"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "origin",
+      "value": "https://luis-dudamel-back-final-project-202204.onrender.com",
+      "type": "string"
+    },
+    {
+      "key": "dev",
+      "value": "http://localhost:4000",
+      "type": "string"
+    }
+  ]
 }
