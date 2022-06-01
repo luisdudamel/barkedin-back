@@ -1,5 +1,17 @@
+const bcrypt = require("bcrypt");
 const User = require("../../database/models/User");
-const { registerUser } = require("./userControllers");
+const { registerUser, loginUser } = require("./userControllers");
+
+const mockToken = "token";
+jest.mock("jsonwebtoken", () => ({
+  ...jest.requireActual("jsonwebtoken"),
+  sign: () => mockToken,
+}));
+
+// jest.mock("bcrypt", () => ({
+//   ...jest.requireActual("bcrypt"),
+//   compare: () => jest.fn().mockResolvedValueOnce(true),
+// }));
 
 describe("Given a registerUser controller", () => {
   describe("When its called with a inexistent username: name, 'Marta', username 'Marta' and a password '1234'", () => {
@@ -60,6 +72,27 @@ describe("Given a registerUser controller", () => {
       await registerUser(req, res, next);
 
       expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a userLogin controller", () => {
+  describe("When its called with a existent username: name, 'Marta', username 'Marta' and a password '1234'", () => {
+    test("Then it should call the responses method json with a 200, and the method json with a token'", async () => {
+      const expectedStatus = 200;
+      const req = {
+        body: {
+          name: "Marta",
+          username: "Marta",
+          password: "1234",
+        },
+      };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      bcrypt.compare = jest.fn().mockResolvedValue(true);
+      await loginUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith({ token: mockToken });
     });
   });
 });
