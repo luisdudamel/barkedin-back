@@ -6,7 +6,7 @@ const { ValidationError } = require("express-validation");
 const notFoundError = (req, res) => {
   debug(chalk.redBright(`A request did not find the endpoint requested`));
 
-  res.status(404).json({ msg: "Endpoint not found" });
+  res.status(404).json({ message: "Endpoint not found" });
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -16,7 +16,7 @@ const generalError = (error, req, res, next) => {
   const statusCode = error.statusCode ?? 500;
 
   if (error instanceof ValidationError) {
-    res.status(400).json({ msg: "Bad request" });
+    res.status(400).json({ message: "Bad request" });
     debug(chalk.bgRedBright(error.message));
   } else {
     res.status(statusCode).json({ message });
