@@ -45,7 +45,7 @@ const loginUser = async (req, res, next) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    const error = new Error("Incorrect password");
+    const error = new Error("Incorrect username");
     error.statusCode = 403;
     error.customMessage = "Username or password is wrong";
 
