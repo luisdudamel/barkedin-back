@@ -1,6 +1,4 @@
 const User = require("../../database/models/User");
-const mongoose = require("../mocks/mongoose");
-const { userWithFavsMock } = require("../mocks/userMocks");
 const { getFavDogs } = require("./dogControllers");
 
 const mockToken = "token";
@@ -22,7 +20,7 @@ describe("Given a getFavDogs controller", () => {
 
       User.findOne = jest.fn(() => ({
         populate: jest.fn(() => ({
-          populate: jest.fn(() => Promise.resolve([])),
+          populate: jest.fn(() => jest.fn().mockResolvedValue("doggies")),
         })),
       }));
 
@@ -30,6 +28,25 @@ describe("Given a getFavDogs controller", () => {
       await getFavDogs(req, res);
 
       expect(res.status).toHaveBeenCalledWith(expectedError);
+    });
+  });
+
+  describe("When its called with a not existent username", () => {
+    test("Then it should call the next function", async () => {
+      const req = {
+        body: {
+          username: "luis1",
+          password: "1234",
+        },
+      };
+
+      User.findOne = jest.fn();
+
+      const next = jest.fn();
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      await getFavDogs(req, res, next);
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });

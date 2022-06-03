@@ -48,6 +48,31 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Get fav dogs",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"luis1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{dev}}/dogs/favdogs",
+          "host": ["{{origin}}"],
+          "path": ["dogs", "favdogs"]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
