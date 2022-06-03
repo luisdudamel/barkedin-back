@@ -38,13 +38,13 @@ describe("Given a GET 'dogs/favdogs' endpoint", () => {
         populate: jest.fn().mockReturnValue(getUserFavsResponse),
       }));
 
-      const { body } = await request(app)
+      const { _body: favdogs } = await request(app)
         .get("/dogs/favdogs")
         .send(existentUserMock)
         .set("Authorization", "Bearer 1234")
         .expect(200);
 
-      expect(body.user).toEqual(getUserFavsResponse);
+      expect(favdogs).toEqual(getUserFavsResponse);
     });
   });
 });
