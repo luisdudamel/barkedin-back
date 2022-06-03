@@ -6,7 +6,6 @@ const User = require("../../database/models/User");
 const getFavDogs = async (req, res, next) => {
   try {
     const { username } = req.body;
-
     const user = await User.findOne({ username }).populate(
       "favdogs",
       null,
