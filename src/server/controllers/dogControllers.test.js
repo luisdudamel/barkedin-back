@@ -38,7 +38,9 @@ describe("Given a getFavDogs controller", () => {
         },
       };
 
-      User.findOne = jest.fn();
+      User.findOne = jest.fn(() => ({
+        populate: jest.fn().mockReturnValue(null),
+      }));
 
       const next = jest.fn();
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
