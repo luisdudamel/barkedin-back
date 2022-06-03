@@ -11,6 +11,7 @@ const getFavDogs = async (req, res, next) => {
       null,
       Dog
     );
+
     if (user) {
       res.status(200).json({ user });
       debug(chalk.yellow("A request to get fav dogs have been made"));

@@ -31,8 +31,7 @@ describe("Given a GET 'dogs/favdogs' endpoint", () => {
       const existentUserMock = {
         username: "paco",
       };
-      const expectedMessage = "New user created succesfully";
-      const expectedStatus = 200;
+
       jwt.verify = jest.fn().mockResolvedValue("tokencito");
 
       User.findOne = jest.fn(() => ({
@@ -44,6 +43,8 @@ describe("Given a GET 'dogs/favdogs' endpoint", () => {
         .send(existentUserMock)
         .set("Authorization", "Bearer 1234")
         .expect(200);
+
+      expect(body.user).toEqual(getUserFavsResponse);
     });
   });
 });
