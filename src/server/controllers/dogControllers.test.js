@@ -19,9 +19,7 @@ describe("Given a getFavDogs controller", () => {
       const expectedError = 200;
 
       User.findOne = jest.fn(() => ({
-        populate: jest.fn(() => ({
-          populate: jest.fn(() => jest.fn().mockResolvedValue("doggies")),
-        })),
+        populate: jest.fn().mockReturnValue("Doggies"),
       }));
 
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
