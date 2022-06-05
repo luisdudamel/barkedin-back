@@ -27,7 +27,7 @@ afterAll(async () => {
 
 describe("Given a GET 'dogs/favdogs' endpoint", () => {
   describe("When it receives a request with an existent username ", () => {
-    test("Then it should respond with status 201 and message 'New user created succesfully''", async () => {
+    test("Then it should respond with status 200 and a list of the user's fav dogs''", async () => {
       const existentUserMock = {
         username: "paco",
       };
