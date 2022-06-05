@@ -6,6 +6,6 @@ const { auth } = require("../middlewares/auth");
 const dogsRouter = express.Router();
 
 dogsRouter.get("/favdogs", auth, getFavDogs);
-dogsRouter.delete("/:idDog", deleteFavDog);
+dogsRouter.delete("/:idDog", auth, deleteFavDog);
 
 module.exports = dogsRouter;
