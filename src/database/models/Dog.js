@@ -21,7 +21,15 @@ const DogSchema = new Schema({
     type: String,
     required: true,
   },
+  personality: {
+    type: String,
+    required: true,
+  },
   picture: {
+    type: String,
+    required: true,
+  },
+  breed: {
     type: String,
     required: true,
   },

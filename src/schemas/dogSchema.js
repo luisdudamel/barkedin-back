@@ -1,6 +1,6 @@
 const { Joi } = require("express-validation");
 
-const registerDogSchema = {
+const createDogSchema = {
   body: Joi.object({
     name: Joi.string()
       .max(20)
@@ -32,4 +32,4 @@ const registerDogSchema = {
   }),
 };
 
-module.exports = { registerDogSchema };
+module.exports = { createDogSchema };
