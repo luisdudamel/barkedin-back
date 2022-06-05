@@ -9,7 +9,10 @@ jest.mock("jsonwebtoken", () => ({
 
 jest.mock("../../database/models/Dog", () => ({
   ...jest.requireActual("../../database/models/Dog"),
-  findByIdAndDelete: jest.fn().mockResolvedValue(true),
+  findByIdAndDelete: jest
+    .fn()
+    .mockResolvedValueOnce(true)
+    .mockRejectedValueOnce(new Error()),
 }));
 
 describe("Given a getFavDogs controller", () => {
@@ -71,6 +74,21 @@ describe("Given a deleteFavDog controller", () => {
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
       expect(res.json).toHaveBeenCalledWith(expectedMessage);
+    });
+  });
+
+  describe("When its called with a non existent dog", () => {
+    test("Then it should call the responses method with a 200 and json method with the message 'Dog succesfully deleted'", async () => {
+      const req = {
+        params: { idDog: "1234" },
+      };
+
+      const next = jest.fn();
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      await deleteFavDog(req, res, next);
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
