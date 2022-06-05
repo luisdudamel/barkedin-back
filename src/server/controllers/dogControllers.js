@@ -24,4 +24,21 @@ const getFavDogs = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { getFavDogs };
+
+const deleteFavDog = async (req, res, next) => {
+  try {
+    const { idDog } = req.params;
+    await Dog.findByIdAndDelete(idDog);
+    res.status(200).json({ message: "Dog succesfully deleted" });
+
+    debug(
+      chalk.greenBright(`A delete request to dogs database has been received`)
+    );
+  } catch (error) {
+    error.customMessage = "Error deleting favorite dog";
+    error.statusCode = 400;
+    next(error);
+  }
+};
+
+module.exports = { getFavDogs, deleteFavDog };
