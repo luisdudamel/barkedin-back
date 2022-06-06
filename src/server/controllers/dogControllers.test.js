@@ -1,5 +1,6 @@
 const User = require("../../database/models/User");
-const { getFavDogs, deleteFavDog } = require("./dogControllers");
+const mockCreateDog = require("../mocks/dogMocks");
+const { getFavDogs, deleteFavDog, createFavDog } = require("./dogControllers");
 
 const mockToken = "token";
 jest.mock("jsonwebtoken", () => ({
@@ -13,6 +14,13 @@ jest.mock("../../database/models/Dog", () => ({
     .fn()
     .mockResolvedValueOnce(true)
     .mockRejectedValueOnce(new Error()),
+  create: jest.fn().mockResolvedValue({ id: "1234" }),
+  findOneAndUpdate: jest.fn().mockResolvedValueOnce(true),
+}));
+
+jest.mock("../../database/models/User", () => ({
+  ...jest.requireActual("../../database/models/User"),
+  findOneAndUpdate: jest.fn().mockResolvedValueOnce(true),
 }));
 
 describe("Given a getFavDogs controller", () => {
@@ -87,6 +95,73 @@ describe("Given a deleteFavDog controller", () => {
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
       await deleteFavDog(req, res, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a createFavDog controller", () => {
+  describe("When its called with a dog", () => {
+    test("Then it should call the responses method with a 201 and json method with the message 'Dog succesfully Created'", async () => {
+      const req = {
+        body: {
+          username: "Firu",
+          newDog: mockCreateDog,
+        },
+        file: { filename: "Foto de firu.jpg" },
+      };
+      const expectedStatus = 201;
+      const expectedMessage = { message: "Dog succesfully created" };
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const next = jest.fn();
+      await createFavDog(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith(expectedMessage);
+    });
+  });
+
+  describe("When its called with a dog", () => {
+    test("Then it should call the responses method with a 201 and json method with the message 'Dog succesfully Created'", async () => {
+      const req = {
+        body: {
+          username: "Firu",
+          newDog: mockCreateDog,
+        },
+        file: { filename: "Foto de firu.jpg" },
+      };
+      const expectedStatus = 201;
+      const expectedMessage = { message: "Dog succesfully created" };
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const next = jest.fn();
+      await createFavDog(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith(expectedMessage);
+    });
+  });
+
+  describe("When its called with a dog with no image file", () => {
+    test("Then it should call the next function", async () => {
+      const req = {
+        body: {
+          username: "Firu",
+          newDog: mockCreateDog,
+        },
+        file: {},
+      };
+
+      jest.mock("fs", () => ({
+        ...jest.requireActual("fs"),
+        rename: jest.fn().mockRejectedValueOnce(-1),
+      }));
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const next = jest.fn();
+      await createFavDog(req, res, next);
 
       expect(next).toHaveBeenCalled();
     });

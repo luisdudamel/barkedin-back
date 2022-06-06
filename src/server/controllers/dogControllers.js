@@ -1,5 +1,7 @@
 const debug = require("debug")("barkedin:server:controller:dogs");
 const chalk = require("chalk");
+const fs = require("fs");
+const path = require("path");
 const Dog = require("../../database/models/Dog");
 const User = require("../../database/models/User");
 
@@ -41,4 +43,40 @@ const deleteFavDog = async (req, res, next) => {
   }
 };
 
-module.exports = { getFavDogs, deleteFavDog };
+const createFavDog = async (req, res, next) => {
+  try {
+    const { newDog, username } = req.body;
+
+    const { file } = req;
+
+    if (file) {
+      const newFileName = `${Date.now()}-${file.originalname}`;
+      fs.rename(
+        path.join("uploads", "images", file.filename),
+        path.join("uploads", "images", newFileName),
+        () => {}
+      );
+      newDog.picture = newFileName;
+    }
+
+    const { id: newDogCreated } = await Dog.create(newDog);
+    await User.findOneAndUpdate(
+      { user: username },
+      {
+        $push: { favdogs: newDogCreated },
+      }
+    );
+
+    res.status(201).json({ message: "Dog succesfully created" });
+
+    debug(
+      chalk.greenBright(`A create request to dogs database has been received`)
+    );
+  } catch (error) {
+    error.customMessage = "Error creating dog";
+    error.statusCode = 400;
+    next(error);
+  }
+};
+
+module.exports = { getFavDogs, deleteFavDog, createFavDog };

@@ -6,7 +6,7 @@ const createDogSchema = {
       .max(20)
       .messages({ message: "Dog name is Required" })
       .required(),
-    age: Joi.string()
+    age: Joi.number()
       .max(2)
       .messages({ message: "Dog age is required" })
       .required(),
@@ -15,15 +15,19 @@ const createDogSchema = {
       .messages({ message: "Dog weight is Required" })
       .required(),
     toy: Joi.string()
-      .max(10)
+      .max(15)
       .messages({ message: "Dog toy is Required" })
       .required(),
     title: Joi.string()
+      .max(20)
+      .messages({ message: "Dog title is Required" })
+      .required(),
+    personality: Joi.string()
       .max(10)
       .messages({ message: "Dog title is Required" })
       .required(),
     breed: Joi.string()
-      .max(10)
+      .max(20)
       .messages({ message: "Dog breed is Required" })
       .required(),
     picture: Joi.string()
