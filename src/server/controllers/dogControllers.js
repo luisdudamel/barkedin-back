@@ -1,5 +1,7 @@
 const debug = require("debug")("barkedin:server:controller:dogs");
 const chalk = require("chalk");
+const fs = require("fs");
+const path = require("path");
 const Dog = require("../../database/models/Dog");
 const User = require("../../database/models/User");
 
@@ -44,8 +46,20 @@ const deleteFavDog = async (req, res, next) => {
 const createFavDog = async (req, res, next) => {
   try {
     const { newDog, username } = req.body;
-    const { id: newDogCreated } = await Dog.create(newDog);
 
+    const { file } = req;
+
+    if (file) {
+      const newFileName = `${Date.now()}-${file.originalname}`;
+      fs.rename(
+        path.join("uploads", "images", file.filename),
+        path.join("uploads", "images", newFileName),
+        () => {}
+      );
+      newDog.picture = newFileName;
+    }
+
+    const { id: newDogCreated } = await Dog.create(newDog);
     await User.findOneAndUpdate(
       { user: username },
       {
