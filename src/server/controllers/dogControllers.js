@@ -41,4 +41,28 @@ const deleteFavDog = async (req, res, next) => {
   }
 };
 
-module.exports = { getFavDogs, deleteFavDog };
+const createFavDog = async (req, res, next) => {
+  try {
+    const { newDog, username } = req.body;
+    const { id: newDogCreated } = await Dog.create(newDog);
+
+    await User.findOneAndUpdate(
+      { user: username },
+      {
+        $push: { favdogs: newDogCreated },
+      }
+    );
+
+    res.status(201).json({ message: "Dog succesfully created" });
+
+    debug(
+      chalk.greenBright(`A create request to dogs database has been received`)
+    );
+  } catch (error) {
+    error.customMessage = "Error creating dog";
+    error.statusCode = 400;
+    next(error);
+  }
+};
+
+module.exports = { getFavDogs, deleteFavDog, createFavDog };

@@ -48,3 +48,27 @@ describe("Given a GET 'dogs/favdogs' endpoint", () => {
     });
   });
 });
+
+describe("Given a DELETE 'dogs/:idDog' endpoint", () => {
+  describe("When it receives a request with an existent dog ", () => {
+    test("Then it should respond with status 200 and a message 'Dog succesfully deleted'", async () => {
+      const existentUserMock = {
+        username: "paco",
+      };
+
+      jwt.verify = jest.fn().mockResolvedValue("tokencito");
+
+      User.findOne = jest.fn(() => ({
+        populate: jest.fn().mockReturnValue(getUserFavsResponse),
+      }));
+
+      const { _body: favdogs } = await request(app)
+        .get("/dogs/favdogs")
+        .send(existentUserMock)
+        .set("Authorization", "Bearer 1234")
+        .expect(200);
+
+      expect(favdogs).toEqual(getUserFavsResponse);
+    });
+  });
+});
