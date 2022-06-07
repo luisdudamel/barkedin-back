@@ -68,7 +68,7 @@ const createFavDog = async (req, res, next) => {
       }
     );
 
-    res.status(201).json({ message: "Dog succesfully created" });
+    res.status(201).json({ message: "New dog succesfully created" });
 
     debug(
       chalk.greenBright(`A create request to dogs database has been received`)
