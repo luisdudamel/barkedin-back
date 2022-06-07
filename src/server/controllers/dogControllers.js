@@ -48,7 +48,7 @@ const createFavDog = async (req, res, next) => {
     const { newDog, username } = req.body;
 
     const { file } = req;
-
+    let newDogParsed;
     if (file) {
       const newFileName = `${Date.now()}-${file.originalname}`;
       fs.rename(
@@ -56,10 +56,11 @@ const createFavDog = async (req, res, next) => {
         path.join("uploads", "images", newFileName),
         () => {}
       );
-      newDog.picture = newFileName;
+      newDogParsed = JSON.parse(newDog);
+      newDogParsed.picture = newFileName;
     }
 
-    const { id: newDogCreated } = await Dog.create(newDog);
+    const { id: newDogCreated } = await Dog.create(newDogParsed);
     await User.findOneAndUpdate(
       { user: username },
       {
