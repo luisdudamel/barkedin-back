@@ -9,4 +9,7 @@ const mockCreateDog = {
   personality: "walker",
 };
 
-module.exports = mockCreateDog;
+const mockJsonCreateDog =
+  '{"name":"asdasd","age":"234","breed":"asdasd","id":"","personality":"Ball","picture":{},"title":"Ball Player","toy":"asdasd","weight":"asdasd"}';
+
+module.exports = { mockCreateDog, mockJsonCreateDog };
