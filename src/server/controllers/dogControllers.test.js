@@ -112,7 +112,7 @@ describe("Given a createFavDog controller", () => {
         file: { filename: "Foto de firu.jpg" },
       };
       const expectedStatus = 201;
-      const expectedMessage = { message: "Dog succesfully created" };
+      const expectedMessage = { message: "New dog succesfully created" };
 
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
       const next = jest.fn();
@@ -133,7 +133,7 @@ describe("Given a createFavDog controller", () => {
         file: { filename: "Foto de firu.jpg" },
       };
       const expectedStatus = 201;
-      const expectedMessage = { message: "Dog succesfully created" };
+      const expectedMessage = { message: "New dog succesfully created" };
 
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
       const next = jest.fn();
