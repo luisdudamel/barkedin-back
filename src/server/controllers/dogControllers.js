@@ -30,8 +30,17 @@ const getFavDogs = async (req, res, next) => {
 const deleteFavDog = async (req, res, next) => {
   try {
     const { idDog } = req.params;
+    const { id } = req.userId;
+
     await Dog.findByIdAndDelete(idDog);
     res.status(200).json({ message: "Dog succesfully deleted" });
+
+    await User.findOneAndUpdate(
+      { _id: id },
+      {
+        $pull: { favdogs: idDog },
+      }
+    );
 
     debug(
       chalk.greenBright(`A delete request to dogs database has been received`)
