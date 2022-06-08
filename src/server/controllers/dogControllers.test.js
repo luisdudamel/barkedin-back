@@ -72,6 +72,7 @@ describe("Given a deleteFavDog controller", () => {
     test("Then it should call the responses method with a 200 and json method with the message 'Dog succesfully deleted'", async () => {
       const req = {
         params: { idDog: 1234 },
+        userId: { id: "1234" },
       };
       const expectedStatus = 200;
       const expectedMessage = { message: "Dog succesfully deleted" };
@@ -110,6 +111,7 @@ describe("Given a createFavDog controller", () => {
           newDog: mockCreateDog.mockJsonCreateDog,
         },
         file: { filename: "Foto de firu.jpg" },
+        userId: { id: "1234" },
       };
       const expectedStatus = 201;
       const expectedMessage = { message: "New dog succesfully created" };
@@ -131,6 +133,7 @@ describe("Given a createFavDog controller", () => {
           newDog: mockCreateDog.mockJsonCreateDog,
         },
         file: { filename: "Foto de firu.jpg" },
+        userId: { id: "1234" },
       };
       const expectedStatus = 201;
       const expectedMessage = { message: "New dog succesfully created" };

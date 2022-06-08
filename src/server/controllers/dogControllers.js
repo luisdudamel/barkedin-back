@@ -41,7 +41,6 @@ const deleteFavDog = async (req, res, next) => {
         $pull: { favdogs: idDog },
       }
     );
-
     debug(
       chalk.greenBright(`A delete request to dogs database has been received`)
     );
@@ -77,7 +76,6 @@ const createFavDog = async (req, res, next) => {
         $push: { favdogs: newDogCreated },
       }
     );
-
     res.status(201).json({ message: "New dog succesfully created" });
 
     debug(
