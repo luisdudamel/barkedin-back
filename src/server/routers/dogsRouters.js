@@ -9,7 +9,10 @@ const {
 } = require("../controllers/dogControllers");
 const { auth } = require("../middlewares/auth");
 
-const upload = multer({ dest: path.join("uploads", "images") });
+const upload = multer({
+  dest: path.join("uploads", "images"),
+  limits: { fileSize: 600000 },
+});
 
 const dogsRouter = express.Router();
 

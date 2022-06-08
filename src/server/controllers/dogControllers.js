@@ -45,7 +45,8 @@ const deleteFavDog = async (req, res, next) => {
 
 const createFavDog = async (req, res, next) => {
   try {
-    const { newDog, username } = req.body;
+    const { newDog } = req.body;
+    const { id } = req.userId;
 
     const { file } = req;
     let newDogParsed;
@@ -62,7 +63,7 @@ const createFavDog = async (req, res, next) => {
 
     const { id: newDogCreated } = await Dog.create(newDogParsed);
     await User.findOneAndUpdate(
-      { user: username },
+      { _id: id },
       {
         $push: { favdogs: newDogCreated },
       }
