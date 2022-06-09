@@ -33,6 +33,10 @@ const DogSchema = new Schema({
     type: String,
     required: true,
   },
+  bio: {
+    type: String,
+    required: true,
+  },
 });
 
 const Dog = model("Dog", DogSchema, "dogs");

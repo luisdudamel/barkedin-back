@@ -1,6 +1,11 @@
 const User = require("../../database/models/User");
 const mockCreateDog = require("../mocks/dogMocks");
-const { getFavDogs, deleteFavDog, createFavDog } = require("./dogControllers");
+const {
+  getFavDogs,
+  deleteFavDog,
+  createFavDog,
+  editFavDog,
+} = require("./dogControllers");
 
 const mockToken = "token";
 jest.mock("jsonwebtoken", () => ({
@@ -16,6 +21,9 @@ jest.mock("../../database/models/Dog", () => ({
     .mockRejectedValueOnce(new Error()),
   create: jest.fn().mockResolvedValue({ id: "1234" }),
   findOneAndUpdate: jest.fn().mockResolvedValueOnce(true),
+  findByIdAndUpdate: jest
+    .fn()
+    .mockResolvedValueOnce(new Error("Error updating dog")),
 }));
 
 jest.mock("../../database/models/User", () => ({
@@ -165,6 +173,49 @@ describe("Given a createFavDog controller", () => {
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
       const next = jest.fn();
       await createFavDog(req, res, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given an editFavDog controller", () => {
+  describe("When its called with a valid edited dog", () => {
+    test("Then it should call the responses method with a 201 and json method with the message 'Dog succesfully edited'", async () => {
+      const req = {
+        body: {
+          username: "Firu",
+          updatedDog: mockCreateDog.mockJsonEditedDog,
+        },
+        file: { filename: "Foto de firu.jpg" },
+        userId: { id: "1234" },
+      };
+      const expectedStatus = 204;
+      const expectedMessage = { message: "Dog succesfully edited" };
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const next = jest.fn();
+      await editFavDog(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith(expectedMessage);
+    });
+  });
+
+  describe("When its called with a non existent dog", () => {
+    test("Then it should call the next function'", async () => {
+      const req = {
+        body: {
+          username: "Firu",
+          updatedDog: "",
+        },
+        file: { filename: "Foto de firu.jpg" },
+        userId: { id: "1234" },
+      };
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const next = jest.fn();
+      await editFavDog(req, res, next);
 
       expect(next).toHaveBeenCalled();
     });

@@ -7,9 +7,31 @@ const mockCreateDog = {
   weight: "4",
   breed: "beagle",
   personality: "walker",
+  bio: "A nice dog",
+};
+
+const mockEditedDog = {
+  age: 9,
+  name: "Chuletas",
+  picture: "rocko.jpg",
+  title: "Calm Walker",
+  toy: "Ball",
+  id: "1234",
+  weight: "4",
+  breed: "beagle",
+  personality: "walker",
+  bio: "A nice dog",
 };
 
 const mockJsonCreateDog =
-  '{"name":"asdasd","age":"234","breed":"asdasd","id":"","personality":"Ball","picture":{},"title":"Ball Player","toy":"asdasd","weight":"asdasd"}';
+  '{"name":"asdasd","age":"234","breed":"asdasd","id":"","personality":"Ball","picture":{},"title":"Ball Player","toy":"asdasd","weight":"asdasd","bio":"A good dog"}';
 
-module.exports = { mockCreateDog, mockJsonCreateDog };
+const mockJsonEditedDog =
+  '{"name":"asdasd","age":"234","breed":"asdasd","id":"","personality":"Ball","picture":{},"title":"Ball Player","toy":"asdasd","weight":"asdasd","bio":"A good dog","id":"1234"}';
+
+module.exports = {
+  mockCreateDog,
+  mockJsonCreateDog,
+  mockEditedDog,
+  mockJsonEditedDog,
+};
