@@ -33,6 +33,7 @@ const createDogSchema = {
     picture: Joi.string()
       .messages({ message: "Dog breed is Required" })
       .required(),
+    bio: Joi.string().messages({ message: "Dog bio is Required" }).required(),
   }),
 };
 

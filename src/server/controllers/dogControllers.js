@@ -55,7 +55,6 @@ const createFavDog = async (req, res, next) => {
   try {
     const { newDog } = req.body;
     const { id } = req.userId;
-
     const { file } = req;
     let newDogParsed;
     if (file) {
@@ -88,4 +87,36 @@ const createFavDog = async (req, res, next) => {
   }
 };
 
-module.exports = { getFavDogs, deleteFavDog, createFavDog };
+const editFavDog = async (req, res, next) => {
+  try {
+    const { updatedDog } = req.body;
+
+    const { file } = req;
+    let updatedDogParsed;
+    if (file) {
+      const newFileName = `${Date.now()}-${file.originalname}`;
+      fs.rename(
+        path.join("uploads", "images", file.filename),
+        path.join("uploads", "images", newFileName),
+        () => {}
+      );
+      updatedDogParsed = JSON.parse(updatedDog);
+      updatedDog.picture = newFileName;
+    }
+
+    await Dog.findByIdAndUpdate(updatedDog.id, updatedDogParsed, {
+      new: true,
+    });
+    res.status(204).json({ message: "Dog succesfully edited" });
+
+    debug(
+      chalk.greenBright(`An edit request to dogs database has been received`)
+    );
+  } catch (error) {
+    error.customMessage = "Error updating dog";
+    error.statusCode = 400;
+    next(error);
+  }
+};
+
+module.exports = { getFavDogs, deleteFavDog, createFavDog, editFavDog };
