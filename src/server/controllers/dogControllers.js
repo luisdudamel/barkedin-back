@@ -90,7 +90,7 @@ const createFavDog = async (req, res, next) => {
 
 const editFavDog = async (req, res, next) => {
   try {
-    const { updatedDog, dogIdToEdit } = req.body;
+    const { updatedDog } = req.body;
 
     const { file } = req;
     let updatedDogParsed;
@@ -105,9 +105,13 @@ const editFavDog = async (req, res, next) => {
       updatedDogParsed.picture = newFileName;
     }
 
-    await Dog.findByIdAndUpdate({ _id: dogIdToEdit }, updatedDogParsed, {
-      new: true,
-    });
+    await Dog.findByIdAndUpdate(
+      { _id: updatedDogParsed.id },
+      updatedDogParsed,
+      {
+        new: true,
+      }
+    );
     res.status(204).json({ message: "Dog succesfully edited" });
 
     debug(
