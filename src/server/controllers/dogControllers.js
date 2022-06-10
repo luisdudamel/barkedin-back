@@ -101,12 +101,16 @@ const editFavDog = async (req, res, next) => {
         () => {}
       );
       updatedDogParsed = JSON.parse(updatedDog);
-      updatedDog.picture = newFileName;
+      updatedDogParsed.picture = newFileName;
     }
 
-    await Dog.findByIdAndUpdate(updatedDog.id, updatedDogParsed, {
-      new: true,
-    });
+    await Dog.findByIdAndUpdate(
+      { _id: updatedDogParsed.id },
+      updatedDogParsed,
+      {
+        new: true,
+      }
+    );
     res.status(204).json({ message: "Dog succesfully edited" });
 
     debug(
