@@ -56,6 +56,7 @@ const createFavDog = async (req, res, next) => {
     const { newDog } = req.body;
     const { id } = req.userId;
     const { file } = req;
+
     let newDogParsed;
     if (file) {
       const newFileName = `${Date.now()}-${file.originalname}`;
@@ -89,7 +90,7 @@ const createFavDog = async (req, res, next) => {
 
 const editFavDog = async (req, res, next) => {
   try {
-    const { updatedDog } = req.body;
+    const { updatedDog, dogIdToEdit } = req.body;
 
     const { file } = req;
     let updatedDogParsed;
