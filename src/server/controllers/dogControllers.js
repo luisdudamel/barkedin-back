@@ -90,7 +90,7 @@ const createFavDog = async (req, res, next) => {
 
 const editFavDog = async (req, res, next) => {
   try {
-    const { updatedDog, dogIdToEdit } = req.body;
+    const { updatedDog } = req.body;
 
     const { file } = req;
     let updatedDogParsed;
