@@ -57,7 +57,7 @@ const createFavDog = async (req, res, next) => {
     const { id } = req.userId;
     const { file } = req;
 
-    let newDogParsed;
+    const newDogParsed = JSON.parse(newDog);
     if (file) {
       const newFileName = `${Date.now()}-${file.originalname}`;
       fs.rename(
@@ -65,7 +65,7 @@ const createFavDog = async (req, res, next) => {
         path.join("uploads", "images", newFileName),
         () => {}
       );
-      newDogParsed = JSON.parse(newDog);
+
       newDogParsed.picture = newFileName;
     }
 
@@ -93,7 +93,7 @@ const editFavDog = async (req, res, next) => {
     const { updatedDog } = req.body;
 
     const { file } = req;
-    let updatedDogParsed;
+    const updatedDogParsed = JSON.parse(updatedDog);
     if (file) {
       const newFileName = `${Date.now()}-${file.originalname}`;
       fs.rename(
@@ -101,7 +101,6 @@ const editFavDog = async (req, res, next) => {
         path.join("uploads", "images", newFileName),
         () => {}
       );
-      updatedDogParsed = JSON.parse(updatedDog);
       updatedDogParsed.picture = newFileName;
     }
 
