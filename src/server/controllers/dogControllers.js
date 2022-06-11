@@ -9,14 +9,14 @@ const dogPage = require("../../utils/dogPage");
 const getFavDogs = async (req, res, next) => {
   try {
     const { username } = req.userId;
-
+    const { page } = req.params;
     const user = await User.findOne({ username }).populate(
       "favdogs",
       null,
       Dog
     );
 
-    const response = dogPage(user.favdogs, 1);
+    const response = dogPage(user.favdogs, page);
 
     if (user) {
       res.status(200).json({ favdogs: response });

@@ -4,8 +4,16 @@ const dogPage = (totalDogs, page) => {
   const finalPageIndex = initialPageIndex + 6;
 
   const totalDogsForPage = totalDogs.slice(initialPageIndex, finalPageIndex);
+  const nextPage = () => {
+    if (page >= totalPages) {
+      return null;
+    }
+    return `http://localhost:4000/dogs/favdogs/${+page + 1}`;
+  };
 
-  return { totalPages, totalDogsForPage };
+  const next = nextPage();
+
+  return { totalPages, next, dogs: totalDogsForPage };
 };
 
 module.exports = dogPage;
