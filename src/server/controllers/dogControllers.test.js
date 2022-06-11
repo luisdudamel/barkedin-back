@@ -185,7 +185,7 @@ describe("Given an editFavDog controller", () => {
       const req = {
         body: {
           username: "Firu",
-          updatedDog: mockCreateDog.mockJsonEditedDog,
+          newDog: mockCreateDog.mockJsonEditedDog,
         },
         file: { filename: "Foto de firu.jpg" },
         userId: { id: "1234" },
