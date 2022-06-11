@@ -27,7 +27,6 @@ const DogSchema = new Schema({
   },
   picture: {
     type: String,
-    required: true,
   },
   breed: {
     type: String,
