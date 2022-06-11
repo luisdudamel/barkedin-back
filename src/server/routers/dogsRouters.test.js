@@ -34,9 +34,11 @@ describe("Given a GET 'dogs/favdogs' endpoint", () => {
 
       jwt.verify = jest.fn().mockResolvedValue("tokencito");
 
-      User.findOne = jest.fn(() => ({
+      User.findOne = jest.fn().mockReturnValueOnce(asdasd).mockReturnValueOnce(
+jest.fn(() => ({
         populate: jest.fn().mockReturnValue(getUserFavsResponse),
-      }));
+      }))
+      ) User.findOne = ;
 
       const { _body: favdogs } = await request(app)
         .get("/dogs/favdogs")
