@@ -90,10 +90,10 @@ const createFavDog = async (req, res, next) => {
 
 const editFavDog = async (req, res, next) => {
   try {
-    const { updatedDog } = req.body;
+    const { newDog } = req.body;
 
     const { file } = req;
-    const updatedDogParsed = JSON.parse(updatedDog);
+    const updatedDogParsed = JSON.parse(newDog);
     if (file) {
       const newFileName = `${Date.now()}-${file.originalname}`;
       fs.rename(
