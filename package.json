@@ -54,6 +54,7 @@
       "!.eslintrc.js",
       "!coverage/**/*.js",
       "!src/index.js",
+      "!src/server/mocks/*",
       "!src/server/initializeServer.js",
       "!src/utils/*",
       "!src/database/index.js"

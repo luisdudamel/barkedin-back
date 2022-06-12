@@ -40,6 +40,7 @@ describe("Given a getFavDogs controller", () => {
           password: "1234",
         },
         params: { page: 0 },
+        query: { personality: "ball" },
       };
       const expectedStatus = 200;
 
