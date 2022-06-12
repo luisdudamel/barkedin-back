@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, SchemaTypes } = require("mongoose");
 
 const DogSchema = new Schema({
   name: {
@@ -34,6 +34,11 @@ const DogSchema = new Schema({
   },
   bio: {
     type: String,
+    required: true,
+  },
+  owner: {
+    type: SchemaTypes.ObjectId,
+    ref: "User",
     required: true,
   },
 });

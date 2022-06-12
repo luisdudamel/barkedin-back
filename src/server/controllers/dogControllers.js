@@ -70,6 +70,7 @@ const createFavDog = async (req, res, next) => {
       );
 
       newDogParsed.picture = newFileName;
+      newDogParsed.owner = id;
     }
 
     const { id: newDogCreated } = await Dog.create(newDogParsed);
