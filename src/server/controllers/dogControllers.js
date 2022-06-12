@@ -4,10 +4,12 @@ const fs = require("fs");
 const path = require("path");
 const Dog = require("../../database/models/Dog");
 const User = require("../../database/models/User");
+const dogPage = require("../../utils/dogPage");
 
 const getFavDogs = async (req, res, next) => {
   try {
     const { username } = req.userId;
+    const { page } = req.params;
 
     const user = await User.findOne({ username }).populate(
       "favdogs",
@@ -15,8 +17,9 @@ const getFavDogs = async (req, res, next) => {
       Dog
     );
 
+    const response = dogPage(user.favdogs, page);
     if (user) {
-      res.status(200).json({ favdogs: user.favdogs });
+      res.status(200).json({ favdogs: response });
       debug(chalk.yellow("A request to get fav dogs have been made"));
     } else {
       throw new Error();

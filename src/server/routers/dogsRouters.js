@@ -17,7 +17,7 @@ const upload = multer({
 
 const dogsRouter = express.Router();
 
-dogsRouter.get("/favdogs", auth, getFavDogs);
+dogsRouter.get("/favdogs/:page", auth, getFavDogs);
 dogsRouter.delete("/:idDog", auth, deleteFavDog);
 dogsRouter.post("/create", auth, upload.single("picture"), createFavDog);
 dogsRouter.put("/edit/:idDog", auth, upload.single("picture"), editFavDog);
