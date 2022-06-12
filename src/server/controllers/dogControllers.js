@@ -1,4 +1,5 @@
 const debug = require("debug")("barkedin:server:controller:dogs");
+
 const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
@@ -10,15 +11,16 @@ const getFavDogs = async (req, res, next) => {
   try {
     const { username } = req.userId;
     const { page } = req.params;
+    const { personality } = req.query;
 
-    const user = await User.findOne({ username }).populate(
-      "favdogs",
-      null,
-      Dog
-    );
+    const dogs = await User.findOne({ username }).populate({
+      path: "favdogs",
+      Dog,
+      match: { personality },
+    });
 
-    const response = dogPage(user.favdogs, page);
-    if (user) {
+    const response = dogPage(dogs.favdogs, page);
+    if (dogs) {
       res.status(200).json({ favdogs: response });
       debug(chalk.yellow("A request to get fav dogs have been made"));
     } else {
