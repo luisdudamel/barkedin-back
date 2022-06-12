@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const connectDB = require("../../database/index");
 const User = require("../../database/models/User");
 const { app } = require("../index");
-const getUserFavsResponse = require("../mocks/userMocks");
+
 const {
   mockUserDogPaginated,
   mockPaginatedResponse,
