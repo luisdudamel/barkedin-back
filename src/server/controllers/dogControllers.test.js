@@ -32,24 +32,25 @@ jest.mock("../../database/models/User", () => ({
 }));
 
 describe("Given a getFavDogs controller", () => {
-  describe("When its called with an existent username with existent faved dogs", () => {
+  describe("When its called with an existent username with existent faved dogs and page 0", () => {
     test("Then it should call the responses status method with a 200", async () => {
       const req = {
         userId: {
           username: "luis1",
           password: "1234",
         },
+        params: { page: 0 },
       };
-      const expectedError = 200;
+      const expectedStatus = 200;
 
       User.findOne = jest.fn(() => ({
-        populate: jest.fn().mockReturnValue("Doggies"),
+        populate: jest.fn().mockReturnValue(mockCreateDog.mockUserDogPaginated),
       }));
 
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
       await getFavDogs(req, res);
 
-      expect(res.status).toHaveBeenCalledWith(expectedError);
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
   });
 

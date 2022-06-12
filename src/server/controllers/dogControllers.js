@@ -10,6 +10,7 @@ const getFavDogs = async (req, res, next) => {
   try {
     const { username } = req.userId;
     const { page } = req.params;
+
     const user = await User.findOne({ username }).populate(
       "favdogs",
       null,
@@ -17,7 +18,6 @@ const getFavDogs = async (req, res, next) => {
     );
 
     const response = dogPage(user.favdogs, page);
-
     if (user) {
       res.status(200).json({ favdogs: response });
       debug(chalk.yellow("A request to get fav dogs have been made"));
