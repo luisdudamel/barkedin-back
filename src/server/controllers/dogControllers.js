@@ -126,4 +126,29 @@ const editFavDog = async (req, res, next) => {
   }
 };
 
-module.exports = { getFavDogs, deleteFavDog, createFavDog, editFavDog };
+const getDogById = async (req, res, next) => {
+  try {
+    const { idDog } = req.params;
+
+    const dogById = await Dog.findById({ _id: idDog });
+    res.status(200).json({ dog: dogById });
+
+    debug(
+      chalk.greenBright(
+        `A get by id request to dogs database has been received`
+      )
+    );
+  } catch (error) {
+    error.customMessage = "Error updating dog";
+    error.statusCode = 400;
+    next(error);
+  }
+};
+
+module.exports = {
+  getFavDogs,
+  deleteFavDog,
+  createFavDog,
+  editFavDog,
+  getDogById,
+};
