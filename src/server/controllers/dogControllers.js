@@ -13,11 +13,13 @@ const getFavDogs = async (req, res, next) => {
     const { page } = req.params;
     const { personality } = req.query;
 
-    const dogs = await User.findOne({ username }).populate({
-      path: "favdogs",
-      Dog,
-      match: { personality },
-    });
+    const dogs = personality
+      ? await User.findOne({ username }).populate({
+          path: "favdogs",
+          Dog,
+          match: { personality },
+        })
+      : await User.findOne({ username }).populate("favdogs", null, Dog);
 
     const response = dogPage(dogs.favdogs, page);
     if (dogs) {
