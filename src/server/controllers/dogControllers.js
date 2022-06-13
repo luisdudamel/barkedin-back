@@ -163,7 +163,7 @@ const getAllDogs = async (req, res, next) => {
 
     const response = dogPage(dogs.favdogs, page);
     if (dogs) {
-      res.status(200).json({ favdogs: response });
+      res.status(200).json({ dogs: response });
       debug(chalk.yellow("A request to get all dogs have been made"));
     } else {
       throw new Error();
