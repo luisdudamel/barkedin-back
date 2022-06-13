@@ -5,6 +5,8 @@ const {
   deleteFavDog,
   createFavDog,
   editFavDog,
+  getDogById,
+  getAllDogs,
 } = require("./dogControllers");
 
 const mockToken = "token";
@@ -15,6 +17,8 @@ jest.mock("jsonwebtoken", () => ({
 
 jest.mock("../../database/models/Dog", () => ({
   ...jest.requireActual("../../database/models/Dog"),
+  find: jest.fn().mockResolvedValue(mockCreateDog.mockAllDogs),
+  findById: jest.fn().mockResolvedValue(mockCreateDog.mockDogById),
   findByIdAndDelete: jest
     .fn()
     .mockResolvedValueOnce(true)
@@ -220,6 +224,52 @@ describe("Given an editFavDog controller", () => {
       await editFavDog(req, res, next);
 
       expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a getDogById controller", () => {
+  describe("When its called with a valid dog id", () => {
+    test("Then it should call the responses method with a 200 and json method with the same valid dog", async () => {
+      const req = {
+        params: {
+          idDog: "123",
+        },
+      };
+      const expectedStatus = 200;
+      const expectedMessage = { dog: mockCreateDog.mockDogById };
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const next = jest.fn();
+      await getDogById(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith(expectedMessage);
+    });
+  });
+});
+
+describe("Given a getAllDogs controller", () => {
+  describe("When its called with a page 0", () => {
+    test("Then it should call the responses method with a 200 and json method with a list of dogs", async () => {
+      const req = {
+        params: {
+          page: 0,
+        },
+        query: {
+          personality: "",
+        },
+      };
+
+      const expectedStatus = 200;
+      const expectedMessage = mockCreateDog.mockPaginatedAllResponse;
+
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const next = jest.fn();
+      await getAllDogs(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith(expectedMessage);
     });
   });
 });
