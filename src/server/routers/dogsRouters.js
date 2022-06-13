@@ -11,6 +11,7 @@ const {
   getAllDogs,
 } = require("../controllers/dogControllers");
 const { auth } = require("../middlewares/auth");
+const firebaseUpload = require("../middlewares/firebase");
 
 const upload = multer({
   dest: path.join("uploads", "images"),
@@ -23,7 +24,13 @@ dogsRouter.get("/all/:page", auth, getAllDogs);
 dogsRouter.get("/:idDog", auth, getDogById);
 dogsRouter.get("/favdogs/:page", auth, getFavDogs);
 dogsRouter.delete("/:idDog", auth, deleteFavDog);
-dogsRouter.post("/create", auth, upload.single("picture"), createFavDog);
+dogsRouter.post(
+  "/create",
+  auth,
+  upload.single("picture"),
+  firebaseUpload,
+  createFavDog
+);
 dogsRouter.put("/edit/:idDog", auth, upload.single("picture"), editFavDog);
 
 module.exports = dogsRouter;

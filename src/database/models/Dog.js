@@ -41,6 +41,10 @@ const DogSchema = new Schema({
     ref: "User",
     required: true,
   },
+  picturebackup: {
+    type: String,
+    required: true,
+  },
 });
 
 const Dog = model("Dog", DogSchema, "dogs");
