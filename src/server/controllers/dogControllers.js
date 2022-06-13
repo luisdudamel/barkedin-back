@@ -150,10 +150,35 @@ const getDogById = async (req, res, next) => {
   }
 };
 
+const getAllDogs = async (req, res, next) => {
+  try {
+    const { page } = req.params;
+    const { personality } = req.query;
+
+    const dogs = {};
+
+    dogs.favdogs = personality
+      ? await Dog.find({ personality })
+      : await Dog.find();
+
+    const response = dogPage(dogs.favdogs, page);
+    if (dogs) {
+      res.status(200).json({ dogs: response });
+      debug(chalk.yellow("A request to get all dogs have been made"));
+    } else {
+      throw new Error();
+    }
+  } catch (error) {
+    error.customMessage = "Error querying all dogs";
+    next(error);
+  }
+};
+
 module.exports = {
   getFavDogs,
   deleteFavDog,
   createFavDog,
   editFavDog,
   getDogById,
+  getAllDogs,
 };

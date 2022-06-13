@@ -8,6 +8,7 @@ const {
   createFavDog,
   editFavDog,
   getDogById,
+  getAllDogs,
 } = require("../controllers/dogControllers");
 const { auth } = require("../middlewares/auth");
 
@@ -18,6 +19,7 @@ const upload = multer({
 
 const dogsRouter = express.Router();
 
+dogsRouter.get("/all/:page", auth, getAllDogs);
 dogsRouter.get("/:idDog", auth, getDogById);
 dogsRouter.get("/favdogs/:page", auth, getFavDogs);
 dogsRouter.delete("/:idDog", auth, deleteFavDog);
