@@ -8,9 +8,26 @@ const mockCreateDog = {
   breed: "beagle",
   personality: "walker",
   bio: "A nice dog",
+  owner: "62966036b74969251496bffd",
+  picturebackup: "backup.jpg",
 };
 
 const mockEditedDog = {
+  age: 9,
+  name: "Chuletas",
+  picture: "rocko.jpg",
+  title: "Calm Walker",
+  toy: "Ball",
+  id: "62966036b74969251496bffd",
+  weight: "4",
+  breed: "beagle",
+  personality: "walker",
+  bio: "A nice dog",
+  picturebackup: "backup.jpg",
+  owner: "62966036b74969251496bffd",
+};
+
+const mockDogToDelete = {
   age: 9,
   name: "Chuletas",
   picture: "rocko.jpg",
@@ -21,6 +38,8 @@ const mockEditedDog = {
   breed: "beagle",
   personality: "walker",
   bio: "A nice dog",
+  picturebackup: "backup.jpg",
+  owner: "62966036b74969251496bffd",
 };
 
 const mockUserDogPaginated = {
@@ -36,6 +55,8 @@ const mockUserDogPaginated = {
       breed: "beagle",
       personality: "walker",
       bio: "A nice dog",
+      picturebackup: "backup.jpg",
+      owner: "62966036b74969251496bffd",
     },
   ],
 };
@@ -53,6 +74,8 @@ const mockDogById = {
       breed: "beagle",
       personality: "walker",
       bio: "A nice dog",
+      picturebackup: "backup.jpg",
+      owner: "62966036b74969251496bffd",
     },
   ],
 };
@@ -69,14 +92,16 @@ const mockAllDogs = [
     breed: "beagle",
     personality: "walker",
     bio: "A nice dog",
+    picturebackup: "backup.jpg",
+    owner: "62966036b74969251496bffd",
   },
 ];
 
 const mockJsonCreateDog =
-  '{"name":"asdasd","age":"234","breed":"asdasd","id":"","personality":"Ball","picture":{},"title":"Ball Player","toy":"asdasd","weight":"asdasd","bio":"A good dog"}';
+  '{"name":"asdasd","age":"234","breed":"asdasd","id":"","personality":"Ball","picture":" ","title":"Ball Player","toy":"asdasd","weight":"asdasd","bio":"A good dog","id":"1234","picturebackup":"backup.jpg","owner":"62966036b74969251496bffd"}';
 
 const mockJsonEditedDog =
-  '{"name":"asdasd","age":"234","breed":"asdasd","id":"","personality":"Ball","picture":{},"title":"Ball Player","toy":"asdasd","weight":"asdasd","bio":"A good dog","id":"1234"}';
+  '{"name":"asdasd","age":"234","breed":"asdasd","id":"","personality":"Ball","picture":" ","title":"Ball Player","toy":"asdasd","weight":"asdasd","bio":"A good dog","id":"1234","picturebackup":"backup.jpg","owner":"62966036b74969251496bffd"}';
 
 const mockPaginatedResponse = {
   favdogs: {
@@ -94,6 +119,8 @@ const mockPaginatedResponse = {
         breed: "beagle",
         personality: "walker",
         bio: "A nice dog",
+        picturebackup: "backup.jpg",
+        owner: "62966036b74969251496bffd",
       },
     ],
   },
@@ -115,6 +142,8 @@ const mockPaginatedAllResponse = {
         breed: "beagle",
         personality: "walker",
         bio: "A nice dog",
+        picturebackup: "backup.jpg",
+        owner: "62966036b74969251496bffd",
       },
     ],
   },
@@ -130,4 +159,5 @@ module.exports = {
   mockDogById,
   mockAllDogs,
   mockPaginatedAllResponse,
+  mockDogToDelete,
 };

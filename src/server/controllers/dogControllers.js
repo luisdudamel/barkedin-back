@@ -1,8 +1,6 @@
 const debug = require("debug")("barkedin:server:controller:dogs");
 
 const chalk = require("chalk");
-const fs = require("fs");
-const path = require("path");
 const Dog = require("../../database/models/Dog");
 const User = require("../../database/models/User");
 const dogPage = require("../../utils/dogPage");
@@ -92,17 +90,10 @@ const editFavDog = async (req, res, next) => {
   try {
     const { newDog } = req.body;
 
-    const { file } = req;
     const updatedDogParsed = JSON.parse(newDog);
-    if (file) {
-      const newFileName = `${Date.now()}-${file.originalname}`;
-      fs.rename(
-        path.join("uploads", "images", file.filename),
-        path.join("uploads", "images", newFileName),
-        () => {}
-      );
-      updatedDogParsed.picture = newFileName;
-    }
+
+    updatedDogParsed.picturebackup = req.body.picturebackup;
+    updatedDogParsed.picture = req.body.picture;
 
     await Dog.findByIdAndUpdate(
       { _id: updatedDogParsed.id },
