@@ -15,6 +15,7 @@ const firebaseUpload = require("../middlewares/firebase");
 
 const upload = multer({
   dest: path.join("uploads", "images"),
+  limits: { fileSize: 3000000 },
 });
 
 const dogsRouter = express.Router();
@@ -30,12 +31,6 @@ dogsRouter.post(
   firebaseUpload,
   createFavDog
 );
-dogsRouter.put(
-  "/edit/:idDog",
-  auth,
-  upload.single("picture"),
-  firebaseUpload,
-  editFavDog
-);
+dogsRouter.put("/edit/:idDog", auth, upload.single("picture"), editFavDog);
 
 module.exports = dogsRouter;
