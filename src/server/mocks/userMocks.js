@@ -79,4 +79,12 @@ const getUserFavsResponse = {
   },
 };
 
-module.exports = getUserFavsResponse;
+const mockUser = {
+  _id: "62a04cae43289d71a6e728a2",
+  name: "Luis2",
+  username: "luis2",
+  password: "$2b$10$2kFw8UvVtSf47u8Acr0yrukjg0cA5cYj9sY37/a0b1uER.kE.kldi",
+  favdogs: ["62966036b74969251496bffd"],
+};
+
+module.exports = { getUserFavsResponse, mockUser };

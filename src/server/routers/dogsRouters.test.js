@@ -10,9 +10,20 @@ const { app } = require("../index");
 const {
   mockUserDogPaginated,
   mockPaginatedResponse,
+  mockCreateDog,
+  mockEditedDog,
+  mockJsonCreateDog,
 } = require("../mocks/dogMocks");
+const Dog = require("../../database/models/Dog");
+const { mockUser } = require("../mocks/userMocks");
 
 let mongoServer;
+
+beforeEach(async () => {
+  await Dog.create(mockCreateDog);
+  await Dog.create(mockEditedDog);
+  await User.create(mockUser);
+});
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
@@ -22,11 +33,12 @@ beforeAll(async () => {
 
 afterEach(async () => {
   await User.deleteMany({});
+  await Dog.deleteMany({});
 });
 
 afterAll(async () => {
-  await mongoServer.stop();
   await mongoose.connection.close();
+  await mongoServer.stop();
 });
 
 describe("Given a GET 'dogs/favdogs/0' endpoint", () => {
@@ -37,7 +49,7 @@ describe("Given a GET 'dogs/favdogs/0' endpoint", () => {
         page: 0,
       };
 
-      jwt.verify = jest.fn().mockResolvedValue("tokencito");
+      jwt.verify = jest.fn().mockResolvedValue("1234");
 
       User.findOne = jest.fn(() => ({
         populate: jest.fn().mockReturnValue(mockUserDogPaginated),
@@ -58,22 +70,45 @@ describe("Given a DELETE 'dogs/:idDog' endpoint", () => {
   describe("When it receives a request with an existent dog ", () => {
     test("Then it should respond with status 200 and a message 'Dog succesfully deleted'", async () => {
       const existentUserMock = {
-        username: "paco",
+        id: "62a04cae43289d71a6e728a2",
       };
+      const expectedMessage = { message: "Dog succesfully deleted" };
 
-      jwt.verify = jest.fn().mockResolvedValue("tokencito");
+      jwt.verify = jest
+        .fn()
+        .mockReturnValue({ id: "62a04cae43289d71a6e728a2" });
 
-      User.findOne = jest.fn(() => ({
-        populate: jest.fn().mockReturnValue(mockUserDogPaginated),
-      }));
-
-      const { _body: favdogs } = await request(app)
-        .get("/dogs/favdogs/0")
+      const { body: message } = await request(app)
+        .delete("/dogs/62966036b74969251496bffd")
         .send(existentUserMock)
         .set("Authorization", "Bearer 1234")
         .expect(200);
 
-      expect(favdogs).toEqual(mockPaginatedResponse);
+      expect(message).toEqual(expectedMessage);
+    });
+  });
+});
+
+describe("Given a POST 'dogs/create' endpoint", () => {
+  describe("When it receives a request with valid token and dog", () => {
+    test("Then it should respond with status 201 and message 'New dog succesfully created''", async () => {
+      const newDogToCreate = {
+        newDog: mockJsonCreateDog,
+        picture: "asd",
+        picturebackup: "asd",
+      };
+      jwt.verify = jest
+        .fn()
+        .mockReturnValue({ id: "62a04cae43289d71a6e728a2" });
+      const expectedMessage = "New dog succesfully created";
+
+      const { body } = await request(app)
+        .post("/dogs/create")
+        .send(newDogToCreate)
+        .set("Authorization", "Bearer 1234")
+        .expect(201);
+
+      expect(body.message).toBe(expectedMessage);
     });
   });
 });
