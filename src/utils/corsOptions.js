@@ -9,8 +9,8 @@ const corsOptions = {
     "http://localhost:5000",
     "http://localhost:5001",
     "http://localhost:5002",
-    "https://luis-dudamel-front-final-project-202204-bcn.netlify.app/",
-    "https://luis-dudamel-front-final-project-202204-bcn.netlify.app",
+    "https://barkedin.netlify.app/",
+    "https://barkedin.netlify.app",
   ],
 };
 
