@@ -11,6 +11,10 @@ const corsOptions = {
     "http://localhost:5002",
     "https://barkedin.netlify.app/",
     "https://barkedin.netlify.app",
+    "https://www.luisdudamel.dev/",
+    "https://www.luisdudamel.dev",
+    "https://luisdudamel.dev",
+    "https://luisdudamel.dev/",
   ],
 };
 
