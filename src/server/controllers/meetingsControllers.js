@@ -17,4 +17,18 @@ const getAllMeetings = async (req, res, next) => {
   }
 };
 
-module.exports = getAllMeetings;
+const getMeetingById = async (req, res, next) => {
+  try {
+    const { idMeeting } = req.params;
+
+    const meetingById = await Meeting.findById({ _id: idMeeting }).populate({
+      path: "dog",
+      Dog,
+    });
+    res.status(200).json({ meetingById });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getAllMeetings, getMeetingById };
