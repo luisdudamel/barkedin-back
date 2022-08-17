@@ -6,6 +6,7 @@ const { notFoundError, generalError } = require("./middlewares/errors");
 const corsOptions = require("../utils/corsOptions");
 const usersRouter = require("./routers/userRouters");
 const dogsRouter = require("./routers/dogsRouters");
+const meetingsRouter = require("./routers/meetingsRouters");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use("/users", usersRouter);
 app.use("/dogs", dogsRouter);
+app.use("/meetings", meetingsRouter);
 app.use(notFoundError);
 app.use(generalError);
 

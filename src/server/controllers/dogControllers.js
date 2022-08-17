@@ -1,5 +1,4 @@
 const debug = require("debug")("barkedin:server:controller:dogs");
-
 const chalk = require("chalk");
 const Dog = require("../../database/models/Dog");
 const User = require("../../database/models/User");
