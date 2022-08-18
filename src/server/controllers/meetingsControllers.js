@@ -34,4 +34,20 @@ const getMeetingById = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllMeetings, getMeetingById };
+const deleteMeeting = async (req, res, next) => {
+  try {
+    const { idMeeting } = req.params;
+
+    await Meeting.findByIdAndDelete(idMeeting);
+    debug(
+      chalk.greenBright(`A delete request to dogs database has been received`)
+    );
+    res.status(202).json({ message: "Meeting succesfully deleted" });
+  } catch (error) {
+    error.customMessage = "Error deleting meeting";
+    error.statusCode = 400;
+    next(error);
+  }
+};
+
+module.exports = { getAllMeetings, getMeetingById, deleteMeeting };
