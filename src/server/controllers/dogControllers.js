@@ -17,7 +17,7 @@ const getFavDogs = async (req, res, next) => {
           match: { personality },
         })
       : await User.findOne({ username }).populate("favdogs", null, Dog);
-    debug(req.hostname);
+
     const response = dogPage(dogs.favdogs, page, req.hostname);
 
     if (dogs) {
@@ -139,12 +139,11 @@ const getAllDogs = async (req, res, next) => {
     const { personality } = req.query;
 
     const dogs = {};
-
     dogs.favdogs = personality
       ? await Dog.find({ personality })
       : await Dog.find();
 
-    const response = dogPage(dogs.favdogs, page);
+    const response = dogPage(dogs.favdogs, page, req.hostname);
     if (dogs) {
       res.status(200).json({ dogs: response });
       debug(chalk.yellow("A request to get all dogs have been made"));

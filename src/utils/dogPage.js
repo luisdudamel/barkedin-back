@@ -8,6 +8,7 @@ const dogPage = (totalDogs, page, host) => {
     if (page >= totalPages) {
       return null;
     }
+
     return `http://${host}/dogs/favdogs/${+page + 1}`;
   };
 
