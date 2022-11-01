@@ -7,7 +7,6 @@
     "test": "jest --passWithNoTests",
     "test-dev": "jest --watchAll",
     "test-coverage": "jest --coverage --passWithNoTests",
-    "prepare": "husky install",
     "start": "node src",
     "nodemon-dev": "nodemon src -q"
   },

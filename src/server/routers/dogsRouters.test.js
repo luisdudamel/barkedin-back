@@ -19,16 +19,16 @@ const { mockUser } = require("../mocks/userMocks");
 
 let mongoServer;
 
-beforeEach(async () => {
-  await Dog.create(mockCreateDog);
-  await Dog.create(mockEditedDog);
-  await User.create(mockUser);
-});
-
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
 
   await connectDB(mongoServer.getUri());
+});
+
+beforeEach(async () => {
+  await Dog.create(mockCreateDog);
+  await Dog.create(mockEditedDog);
+  await User.create(mockUser);
 });
 
 afterEach(async () => {
