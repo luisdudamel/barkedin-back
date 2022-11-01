@@ -17,8 +17,8 @@ const getFavDogs = async (req, res, next) => {
           match: { personality },
         })
       : await User.findOne({ username }).populate("favdogs", null, Dog);
-    debug(req.hostname);
-    const response = dogPage(dogs.favdogs, page, req.hostname);
+
+    const response = dogPage(dogs.favdogs, page);
 
     if (dogs) {
       res.status(200).json({ favdogs: response });
