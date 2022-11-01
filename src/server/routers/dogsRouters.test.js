@@ -43,7 +43,7 @@ afterAll(async () => {
 
 describe("Given a GET 'dogs/favdogs/0' endpoint", () => {
   describe("When it receives a request with an existent username ", () => {
-    test.skip("Then it should respond with status 200 and a list of the user's fav dogs''", async () => {
+    test("Then it should respond with status 200 and a list of the user's fav dogs''", async () => {
       const existentUserMock = {
         username: "paco",
         page: 0,

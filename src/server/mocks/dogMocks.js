@@ -106,7 +106,7 @@ const mockJsonEditedDog =
 const mockPaginatedResponse = {
   favdogs: {
     totalPages: 1,
-    next: "http://localhost:4000/dogs/favdogs/1",
+    next: "http://127.0.0.1/dogs/favdogs/1",
     dogs: [
       {
         age: 9,
@@ -129,7 +129,7 @@ const mockPaginatedResponse = {
 const mockPaginatedAllResponse = {
   dogs: {
     totalPages: 1,
-    next: "http://localhost:4000/dogs/favdogs/1",
+    next: "http://127.0.0.1/dogs/favdogs/1",
     dogs: [
       {
         age: 9,
