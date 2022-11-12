@@ -12,10 +12,10 @@ const {
 } = require("../controllers/dogControllers");
 const { auth } = require("../middlewares/auth");
 const supabaseUpload = require("../middlewares/supabase");
+const resizeImage = require("../middlewares/fileResize");
 
 const upload = multer({
   dest: path.join("uploads", "images"),
-  limits: { fileSize: 3000000 },
 });
 
 const dogsRouter = express.Router();
@@ -28,6 +28,7 @@ dogsRouter.post(
   "/create",
   auth,
   upload.single("picture"),
+  resizeImage,
   supabaseUpload,
   createFavDog
 );
