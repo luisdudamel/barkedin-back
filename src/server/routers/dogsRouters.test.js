@@ -12,7 +12,6 @@ const {
   mockPaginatedResponse,
   mockCreateDog,
   mockEditedDog,
-  mockJsonCreateDog,
 } = require("../mocks/dogMocks");
 const Dog = require("../../database/models/Dog");
 const { mockUser } = require("../mocks/userMocks");
@@ -85,30 +84,6 @@ describe("Given a DELETE 'dogs/:idDog' endpoint", () => {
         .expect(200);
 
       expect(message).toEqual(expectedMessage);
-    });
-  });
-});
-
-describe("Given a POST 'dogs/create' endpoint", () => {
-  describe("When it receives a request with valid token and dog", () => {
-    test("Then it should respond with status 201 and message 'New dog succesfully created''", async () => {
-      const newDogToCreate = {
-        newDog: mockJsonCreateDog,
-        picture: "asd",
-        picturebackup: "asd",
-      };
-      jwt.verify = jest
-        .fn()
-        .mockReturnValue({ id: "62a04cae43289d71a6e728a2" });
-      const expectedMessage = "New dog succesfully created";
-
-      const { body } = await request(app)
-        .post("/dogs/create")
-        .send(newDogToCreate)
-        .set("Authorization", "Bearer 1234")
-        .expect(201);
-
-      expect(body.message).toBe(expectedMessage);
     });
   });
 });
