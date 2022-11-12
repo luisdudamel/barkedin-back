@@ -11,7 +11,7 @@ const {
   getAllDogs,
 } = require("../controllers/dogControllers");
 const { auth } = require("../middlewares/auth");
-const firebaseUpload = require("../middlewares/firebase");
+const supabaseUpload = require("../middlewares/supabase");
 
 const upload = multer({
   dest: path.join("uploads", "images"),
@@ -28,7 +28,7 @@ dogsRouter.post(
   "/create",
   auth,
   upload.single("picture"),
-  firebaseUpload,
+  supabaseUpload,
   createFavDog
 );
 dogsRouter.put("/edit/:idDog", auth, upload.single("picture"), editFavDog);

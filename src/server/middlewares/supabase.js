@@ -1,5 +1,5 @@
 const { readFile } = require("fs/promises");
-const debug = require("debug")("barkedin:middlewares:firebase");
+const debug = require("debug")("barkedin:middlewares:supabase");
 const chalk = require("chalk");
 const { createClient } = require("@supabase/supabase-js");
 const fs = require("fs");
@@ -8,16 +8,14 @@ const path = require("path");
 const supaBaseUrl = process.env.SUPABASE_URL;
 const supaBaseKey = process.env.SUPABASE_KEY;
 
-const firebaseUpload = async (req, res, next) => {
+const supaBaseUpload = async (req, res, next) => {
   const { file } = req;
 
   const supabase = createClient(supaBaseUrl, supaBaseKey);
   const supaStorage = supabase.storage.from("barkedin-back");
-
   try {
     if (file) {
       const newFileName = file ? `${Date.now()}${file.originalname}` : "";
-
       fs.rename(
         path.join("uploads", "images", file.filename),
         path.join("uploads", "images", newFileName),
@@ -26,7 +24,6 @@ const firebaseUpload = async (req, res, next) => {
             debug(chalk.red("Error renaming picture"));
             next(error);
           }
-
           const imagePath = path.join("uploads/images", newFileName);
           const fileData = await readFile(imagePath);
           await supaStorage.upload(`uploads/images/${newFileName}`, fileData);
@@ -48,4 +45,4 @@ const firebaseUpload = async (req, res, next) => {
   }
 };
 
-module.exports = firebaseUpload;
+module.exports = supaBaseUpload;
