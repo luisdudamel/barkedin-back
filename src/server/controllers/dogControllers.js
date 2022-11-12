@@ -60,13 +60,11 @@ const createFavDog = async (req, res, next) => {
   try {
     const { newDog } = req.body;
     const { id } = req.userId;
-
-    const newDogParsed = JSON.parse(newDog);
+    const newDogParsed = newDog;
 
     newDogParsed.picture = req.body.picture;
     newDogParsed.picturebackup = req.body.picturebackup;
     newDogParsed.owner = id;
-
     const { id: newDogCreated } = await Dog.create(newDogParsed);
     await User.findOneAndUpdate(
       { _id: id },
@@ -93,7 +91,7 @@ const editFavDog = async (req, res, next) => {
     const updatedDogParsed = JSON.parse(newDog);
 
     updatedDogParsed.picturebackup = req.body.picturebackup;
-    updatedDogParsed.picture = req.body.picture;
+    updatedDogParsed.picture = req.body.picturebackup;
 
     await Dog.findByIdAndUpdate(
       { _id: updatedDogParsed.id },
